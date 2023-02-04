@@ -1,23 +1,43 @@
-import logo from './logo.svg';
 import './App.css';
 
+import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Tooltip } from "chart.js";
+import { useRef } from 'react';
+import { Bar } from "react-chartjs-2";
+
+ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
+
 function App() {
+
+  const data = {
+    labels: ["Mon", "Tue", "Wed", "thu"],
+    datasets: [
+      {
+        label: "Sales Number",
+        data: [3, 6, 9, 3.69],
+        borderColor: "black",
+        backgroundColor: ["aqua", "red", "aqua", "red"],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const chartRef = useRef()
+  const onClick = (e) => {
+    console.log(e)
+  }
+  const options = {}
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="App" style={{padding : "20px"}}>
+      <div>
+        <Bar
+        data={data}
+        options={options}
+        onClick={onClick}
+        ref = {chartRef}
         >
-          Learn React
-        </a>
-      </header>
+
+        </Bar>
+      </div>
     </div>
   );
 }
